@@ -1,0 +1,1 @@
+"""Holberton Jr. Code Studio — a beginner-friendly Python editor for kids."""
