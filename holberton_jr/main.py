@@ -7,13 +7,14 @@ import os
 
 def main():
     # Ensure PyQt6 platform plugin can be found
-    # This helps with AppImage and some Linux setups
+    # This helps with virtual environments and AppImage setups
     if "QT_QPA_PLATFORM_PLUGIN_PATH" not in os.environ:
-        # Try to find the platform plugin in common locations
         for path in [
             os.path.join(sys.prefix, "PyQt6", "Qt6", "plugins", "platforms"),
-            os.path.join(os.path.dirname(sys.executable), "..", "lib", "python3",
+            # venv layout
+            os.path.join(sys.prefix, "lib", "python3",
                          f"dist-packages/PyQt6/Qt6/plugins/platforms"),
+            # site-packages layout (varies by distro)
         ]:
             if os.path.isdir(path):
                 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = path
@@ -34,11 +35,16 @@ def main():
 
     # Parse command-line args for workspace dir
     workspace = None
-    for i, arg in enumerate(sys.argv[1:]):
-        if arg in ("--workspace", "-w") and i + 1 < len(sys.argv[1:]):
-            workspace = sys.argv[i + 2]
-        elif not arg.startswith("-"):
-            workspace = arg
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] in ("--workspace", "-w") and i + 1 < len(args):
+            workspace = args[i + 1]
+            break
+        elif not args[i].startswith("-"):
+            workspace = args[i]
+            break
+        i += 1
 
     window = MainWindow(workspace_dir=workspace)
     window.show()

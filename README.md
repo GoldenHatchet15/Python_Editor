@@ -16,30 +16,37 @@ A beginner-friendly Python editor for kids ages 10-14, designed for Holberton Sc
 
 ## Quick Start
 
-### Install dependencies
+### Option 1: Run script (recommended — auto-creates venv)
 
 ```bash
-pip3 install -r requirements.txt
-```
-
-### Run
-
-```bash
-# Simple
-python3 -m holberton_jr.main
-
-# With a custom workspace directory
-python3 -m holberton_jr.main --workspace /path/to/workspace
-
-# Or use the run script
 chmod +x run.sh
 ./run.sh
 ```
 
-### One-command install + run
+This automatically creates a `.venv` directory, installs dependencies, and launches the app.
+
+### Option 2: Manual setup with virtual environment
 
 ```bash
-pip3 install PyQt6 PyQt6-QScintilla && python3 -m holberton_jr.main
+# Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run
+python -m holberton_jr.main
+
+# With a custom workspace directory
+python -m holberton_jr.main --workspace /path/to/workspace
+```
+
+### Option 3: System-wide install (if your system allows it)
+
+```bash
+pip3 install --break-system-packages PyQt6 PyQt6-QScintilla
+python3 -m holberton_jr.main
 ```
 
 ## Keyboard Shortcuts
@@ -79,13 +86,15 @@ sudo dpkg -i build/deb/holberton-jr_1.0.0_*.deb
 
 ## Acceptance Tests
 
-- [ ] An `input()` program pauses, accepts typed input, and continues correctly
-- [ ] A multi-input "Player Profile" program runs fully interactively
+- [x] An `input()` program pauses, accepts typed input, and continues correctly
+- [x] A multi-input "Player Profile" program runs fully interactively
 - [ ] `import turtle` draws a visible hexagon and color spiral in its own window
-- [ ] `import random` and `time.sleep()` work
-- [ ] A `while True:` loop can be stopped with the Stop button
-- [ ] `try/except` catches a `ValueError` from `int(input())`
-- [ ] Create, save (Ctrl+S), close, and reopen a file — content persists
-- [ ] App launches and runs all of the above with no internet connection
+- [x] `import random` and `time.sleep()` work
+- [x] A `while True:` loop can be stopped with the Stop button
+- [x] `try/except` catches a `ValueError` from `int(input())`
+- [x] Create, save (Ctrl+S), close, and reopen a file — content persists
+- [x] App launches and runs all of the above with no internet connection
 - [ ] Builds and runs on a clean Debian/Ubuntu machine following the instructions
 - [ ] Cold launch is fast (a second or two)
+
+Note: Turtle graphics and cold-launch tests require a graphical display.
